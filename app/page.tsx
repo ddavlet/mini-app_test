@@ -1,5 +1,5 @@
 'use client'
-import WebApp from '@twa-dev/sdk'
+// import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react';
 
 interface UserData {
@@ -15,9 +15,12 @@ export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
-    if (WebApp.initDataUnsafe.user) {
-      setUserData(WebApp.initDataUnsafe.user as UserData);
-    }
+    // Import and initialize WebApp only on the client side
+    import('@twa-dev/sdk').then((WebApp) => {
+      if (WebApp.default.initDataUnsafe.user) {
+        setUserData(WebApp.default.initDataUnsafe.user as UserData);
+      }
+    });
   }, []);
 
   return (
