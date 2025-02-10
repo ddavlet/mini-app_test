@@ -26,7 +26,7 @@ export default function Home() {
     // New popup interval
     const intervalId = setInterval(() => {
       setShowPopup(true);
-    }, 1000);
+    }, 10000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
