@@ -13,6 +13,7 @@ interface UserData {
 
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     // Import and initialize WebApp only on the client side
@@ -21,6 +22,14 @@ export default function Home() {
         setUserData(WebApp.default.initDataUnsafe.user as UserData);
       }
     });
+
+    // New popup interval
+    const intervalId = setInterval(() => {
+      setShowPopup(true);
+    }, 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -44,6 +53,30 @@ export default function Home() {
           )
         }
       </main>
+
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-4 rounded-lg shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Visit Our Website</h2>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+            <a
+              href="https://ddavlety.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:text-blue-700"
+            >
+              Visit ddavlety.com
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
