@@ -56,9 +56,8 @@ export default function Home() {
 
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold">Visit Our Website</h2>
+          <div className="bg-white p-4 rounded-lg shadow-lg max-w-2xl w-full">
+            <div className="flex justify-end">
               <button
                 onClick={() => setShowPopup(false)}
                 className="text-gray-500 hover:text-gray-700"
@@ -70,9 +69,18 @@ export default function Home() {
               href="https://ddavlety.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 hover:text-blue-700"
+              className="block"
             >
-              Visit ddavlety.com
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
+                <img
+                  src="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
+                  alt="Visit ddavlety.com"
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                  <h2 className="text-white text-xl font-bold">Visit ddavlety.com</h2>
+                </div>
+              </div>
             </a>
           </div>
         </div>
