@@ -66,7 +66,7 @@ export default function Home() {
               </button>
             </div>
             <a
-              href="https://ddavlety.com"
+              href="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
               target="_blank"
               rel="noopener noreferrer"
               className="block"
@@ -74,7 +74,7 @@ export default function Home() {
               <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
                 <img
                   src="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-                  alt="Visit ddavlety.com"
+                  alt="Visit elefant"
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
