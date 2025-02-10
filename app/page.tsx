@@ -31,6 +31,12 @@ export default function Home() {
     }
   };
 
+  const simplifiedUserData = userData ? {
+    first_name: userData.first_name,
+    username: userData.username,
+    is_premium: userData.is_premium
+  } : null;
+
   return (
     <div>
       <div className="fixed top-0 left-0 right-0 z-10 bg-black bg-opacity-50 p-4">
@@ -42,7 +48,10 @@ export default function Home() {
         )}
       </div>
 
-      <Game onGameOver={handleGameOver} />
+      <Game
+        onGameOver={handleGameOver}
+        userData={simplifiedUserData}
+      />
     </div>
   );
 }

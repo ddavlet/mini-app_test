@@ -3,13 +3,20 @@
 import { useState, useEffect } from 'react';
 import Score from '@/app/components/Score';
 import Image from 'next/image';
+import FooterMenu from '@/app/components/FooterMenu';
 
 interface GameProps {
   onGameOver?: (score: number) => void;
+  userData: {
+    first_name: string;
+    username: string;
+    is_premium: boolean;
+  } | null;
 }
 
-export default function Game({ onGameOver }: GameProps) {
+export default function Game({ onGameOver, userData }: GameProps) {
   const [score, setScore] = useState(0);
+  const [coins, setCoins] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30); // 30 seconds game
   const [isGameActive, setIsGameActive] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 50, y: 50 });
@@ -24,7 +31,7 @@ export default function Game({ onGameOver }: GameProps) {
 
   const moveTarget = () => {
     const newX = Math.random() * 80; // Keep within 80% of screen width
-    const newY = Math.random() * 70; // Keep within 70% of screen height
+    const newY = Math.random() * 60; // Keep within 60% of screen height to avoid top UI elements
     setTargetPosition({ x: newX, y: newY });
   };
 
@@ -32,6 +39,14 @@ export default function Game({ onGameOver }: GameProps) {
     if (!isGameActive) return;
     setScore(prev => prev + 1);
     moveTarget();
+  };
+
+  const handleExchangePoints = (points: number) => {
+    if (score >= points) {
+      const coinsToAdd = Math.floor(points / 100); // 100 points = 1 coin
+      setScore(prev => prev - points);
+      setCoins(prev => prev + coinsToAdd);
+    }
   };
 
   useEffect(() => {
@@ -109,6 +124,8 @@ export default function Game({ onGameOver }: GameProps) {
                 <Image
                   src="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
                   alt="Visit elefant"
+                  width={800}
+                  height={450}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
@@ -119,6 +136,13 @@ export default function Game({ onGameOver }: GameProps) {
           </div>
         </div>
       )}
+
+      <FooterMenu
+        score={score}
+        coins={coins}
+        onExchangePoints={handleExchangePoints}
+        userData={userData}
+      />
     </div>
   );
 }
